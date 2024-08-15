@@ -5,9 +5,7 @@
 The Sentiment Analysis Portal is a web-based application designed to analyze and visualize sentiment from customer reviews. The portal allows users to upload CSV files containing reviews and other related information and provides various visualizations to better understand sentiment trends, distribution, and keyword associations.
 
 ## Project Structure
-
-![image](https://github.com/user-attachments/assets/68d98aeb-4d5b-4b11-aa05-38fd2d9927cd)
-
+![image](https://github.com/user-attachments/assets/dc8de583-cbee-4133-88c5-3c83683db8ec)
 ### Explanation of Files and Directories:
 
 - **static/css/styles.css**: Stylesheets for the frontend.
