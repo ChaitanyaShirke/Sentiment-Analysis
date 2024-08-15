@@ -6,20 +6,7 @@ The Sentiment Analysis Portal is a web-based application designed to analyze and
 
 ## Project Structure
 
-SentimentAnalysisPortal/
-├── static/
-│   ├── css/
-│   │   ├── styles.css
-│   ├── js/
-│   │   ├── output.js
-├── templates/
-│   ├── index.html
-├── models/
-│   ├── sentiment_model.pkl
-│   └── vectorizer.pkl
-├── app.py
-├── readme.md
-├── requirements.txt
+![image](https://github.com/user-attachments/assets/68d98aeb-4d5b-4b11-aa05-38fd2d9927cd)
 
 ### Explanation of Files and Directories:
 
