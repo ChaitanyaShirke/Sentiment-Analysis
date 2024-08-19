@@ -32,11 +32,21 @@ The Sentiment Analysis Portal is a web-based application designed to analyze and
 
 2. **Install Dependencies**:
 
-   Use the following command to install the required dependencies:
+   - **Option 1: Using `requirements.txt`**:
+   
+     Install the required dependencies using the command:
+     
+     ```bash
+     pip install -r requirements.txt
+     ```
 
-
-   pip install -r requirements.txt
-   ```
+   - **Option 2: Manually Install Required Libraries**:
+   
+     If `requirements.txt` fails or is unavailable, you can manually install the necessary libraries with:
+     
+     ```bash
+      pip install Flask>=2.1.1,<3.0 numpy>=1.24.2,<2.0 pandas>=1.5.3,<2.0 scikit-learn>=1.1.1,<2.0 matplotlib>=3.7.1,<4.0 plotly>=5.9.0,<6.0 d3js==7.8.4 seaborn>=0.11,<0.12 textblob>=0.15,<0.16 nltk>=3.6,<4.0 networkx>=2.5,<3.0 wordcloud>=1.8,<2.0
+     ```
 
 3. **Run the Application**:
 
