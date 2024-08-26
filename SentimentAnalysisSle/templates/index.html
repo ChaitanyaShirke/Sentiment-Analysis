@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Analysis Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Review Analysis Portal</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
+    </header>
+    <div class="container">
+        <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
             <input type="file" name="review_file" accept=".csv" required>
             <button type="submit">Upload</button>
         </form>
@@ -24,56 +26,74 @@
         </div>
 
         <!-- Results -->
-        {% if sentiment_dist_pie_url or sentiment_dist_bar_url %}
-        <div class="chart">
-            <h2>Sentiment Distribution</h2>
-            {% if sentiment_dist_pie_url %}
-            <img src="data:image/png;base64,{{ sentiment_dist_pie_url }}" alt="Sentiment Distribution (Pie Chart)">
+        <div class="results">
+            {% if sentiment_dist_pie_url or sentiment_dist_bar_url %}
+            <div class="chart-container zoom" onclick="zoomChart(this)">
+                <h2>Sentiment Distribution</h2>
+                <div class="chart">
+                    {% if sentiment_dist_pie_url %}
+                    <img src="data:image/png;base64,{{ sentiment_dist_pie_url }}" alt="Sentiment Distribution (Pie Chart)">
+                    {% endif %}
+                    {% if sentiment_dist_bar_url %}
+                    <img src="data:image/png;base64,{{ sentiment_dist_bar_url }}" alt="Sentiment Distribution (Bar Chart)">
+                    {% endif %}
+                </div>
+            </div>
             {% endif %}
-            {% if sentiment_dist_bar_url %}
-            <img src="data:image/png;base64,{{ sentiment_dist_bar_url }}" alt="Sentiment Distribution (Bar Chart)">
+
+            {% if sentiment_trends_url %}
+            <div class="chart-container zoom" onclick="zoomChart(this)">
+                <h2>Sentiment Trends Over Time</h2>
+                <img src="data:image/png;base64,{{ sentiment_trends_url }}" alt="Sentiment Trends Over Time">
+            </div>
+            {% endif %}
+
+            {% if comparative_analysis_url %}
+            <div class="chart-container zoom" onclick="zoomChart(this)">
+                <h2>Comparative Sentiment Analysis</h2>
+                <img src="data:image/png;base64,{{ comparative_analysis_url }}" alt="Comparative Sentiment Analysis">
+            </div>
+            {% endif %}
+
+            {% if sentiment_heatmap_url %}
+            <div class="chart-container zoom" onclick="zoomChart(this)">
+                <h2>Sentiment Heatmap</h2>
+                <img src="data:image/png;base64,{{ sentiment_heatmap_url }}" alt="Sentiment Heatmap">
+            </div>
+            {% endif %}
+
+            {% if network_graph_url %}
+            <div class="chart-container zoom" onclick="zoomChart(this)">
+                <h2>Network Graph</h2>
+                <img src="data:image/png;base64,{{ network_graph_url }}" alt="Network Graph">
+            </div>
             {% endif %}
         </div>
-        {% endif %}
-
-        {% if sentiment_trends_url %}
-        <div class="chart">
-            <h2>Sentiment Trends Over Time</h2>
-            <img src="data:image/png;base64,{{ sentiment_trends_url }}" alt="Sentiment Trends Over Time">
-        </div>
-        {% endif %}
-
-        {% if comparative_analysis_url %}
-        <div class="chart">
-            <h2>Comparative Sentiment Analysis</h2>
-            <img src="data:image/png;base64,{{ comparative_analysis_url }}" alt="Comparative Sentiment Analysis">
-        </div>
-        {% endif %}
-
-        {% if sentiment_heatmap_url %}
-        <div class="chart">
-            <h2>Sentiment Heatmap</h2>
-            <img src="data:image/png;base64,{{ sentiment_heatmap_url }}" alt="Sentiment Heatmap">
-        </div>
-        {% endif %}
-
-        {% if network_graph_url %}
-        <div class="chart">
-            <h2>Network Graph</h2>
-            <img src="data:image/png;base64,{{ network_graph_url }}" alt="Network Graph">
-        </div>
-        {% endif %}
-
     </div>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Review Analysis Portal</p>
-        <p>Developed by:</p>
-        <ul>
-            <li>KFMSCIT008: Glory Lithiyal Udaykumar</li>
-            <li>KFMSCIT026: Rane Ayush Samir</li>
-            <li>KFMSCIT028: Salunke Surabhi Abhijit</li>
-            <li>KFMSCIT036: Shirke Chaitanya Damodar</li>
-        </ul>
+        <div class="footer-content">
+            <!-- Footer Links Section -->
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+    
+            <!-- Footer Info Section -->
+            <div class="footer-info">
+                <p>&copy; 2024 Review Analysis Portal</p>
+                <ul>
+                    <li>KFMSCIT008: Glory Lithiyal Udaykumar</li>
+                    <li>KFMSCIT026: Rane Ayush Samir</li>
+                    <li>KFMSCIT028: Salunke Surabhi Abhijit</li>
+                    <li>KFMSCIT036: Shirke Chaitanya Damodar</li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
@@ -81,13 +101,34 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Check if any results are displayed
             const instructions = document.getElementById('instructions');
-            const charts = document.querySelectorAll('.chart');
+            const charts = document.querySelectorAll('.chart-container');
 
             if (charts.length > 0) {
                 // Hide instructions if results are displayed
                 instructions.style.display = 'none';
             }
         });
+
+        // Show loading spinner when the form is submitted
+        document.querySelector('form').addEventListener('submit', function() {
+            showLoadingSpinner();
+        });
+
+        // Hide loading spinner after the page is loaded
+        window.addEventListener('load', function() {
+            hideLoadingSpinner();
+        });
+
+        function zoomChart(chartContainer) {
+            if (chartContainer.classList.contains('zoomed')) {
+                chartContainer.classList.remove('zoomed');
+            } else {
+                document.querySelectorAll('.chart-container').forEach(container => {
+                    container.classList.remove('zoomed');
+                });
+                chartContainer.classList.add('zoomed');
+            }
+        }
     </script>
 </body>
 </html>
