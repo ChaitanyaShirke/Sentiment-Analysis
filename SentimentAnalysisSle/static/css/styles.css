@@ -1,0 +1,223 @@
+/* styles.css */
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+input[type="file"] {
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Instructions */
+.instructions {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+
+.instructions h2 {
+  margin-top: 0;
+}
+
+.instructions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.instructions li {
+  margin-bottom: 10px;
+}
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Maintain square shape for charts */
+  aspect-ratio: 1; /* Ensure container is square */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.chart-container.zoomed {
+  transform: scale(1.5);
+  z-index: 10;
+  position: absolute; /* Use fixed positioning to allow scrolling */
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  width: 80vw; /* Adjust width for zoomed state */
+  overflow: auto; /* Enable scrolling */
+}
+
+.chart-container h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.chart-container img {
+  width: 100%;
+  height: auto; /* Ensure image maintains aspect ratio */
+  max-height: 100%; /* Ensure image fits within container */
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+/* Footer */
+footer {
+  background: #007bff;
+  color: #fff;
+  padding: 10px;
+  
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #0056b3;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between; /* Align items side by side */
+  align-items: center;
+}
+
+footer .footer-content {
+  display: flex;
+  justify-content: space-between; /* Align sections side by side */
+  width: 100%;
+  max-width: 1200px; /* Optional: limit max width */
+  margin: 0 auto; /* Center align footer content */
+}
+
+footer .footer-links,
+footer .footer-info {
+  flex: 2;
+  text-align: left;
+}
+
+footer .footer-links ul,
+footer .footer-info ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer-links li,
+footer .footer-info li {
+  margin: 2px 0;
+}
+
+footer .footer-info p {
+  margin: 0;
+  font-size: 12px; /* Smaller font size */
+}
+
+footer .footer-info ul {
+  font-size: 12px; /* Smaller font size */
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+/* Additional CSS for loading spinner and tooltips */
+
+#loading-spinner .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3em;
+}
+
+.tooltip-inner {
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.tooltip-arrow {
+  border-top-color: #333;
+}
+
+/* Ensure the spinner and tooltip appear on top of other content */
+.position-fixed {
+  z-index: 1050; /* Ensures it appears above other content */
+}
+
+/* Optional: Add some basic styles for tooltips if needed */
+.tooltip {
+  font-size: 0.875rem;
+  max-width: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+      width: 90%;
+      padding: 10px;
+  }
+
+  form {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  input[type="file"] {
+      margin-bottom: 10px;
+      margin-right: 0;
+  }
+}
